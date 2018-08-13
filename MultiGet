@@ -1,0 +1,30 @@
+/*public static List<Record> multiGet(RestHighLevelClient client, List<org.elasticsearch.action.get.MultiGetRequest.Item> items) throws Exception {
+		List<Record> records = new ArrayList<>();
+        JSONObject multiGetRequestBody = new JSONObject();
+        JSONArray docs = new JSONArray();
+        for (org.elasticsearch.action.get.MultiGetRequest.Item i : items) {
+        	JSONObject item = new JSONObject();
+        	item.put("_index", i.index());
+        	item.put("_type", i.type());
+        	item.put("_id", i.id());
+            docs.put(item);
+        }
+        multiGetRequestBody.put("docs", docs);
+        
+        HttpEntity entity = new NStringEntity(multiGetRequestBody.toString(), ContentType.APPLICATION_JSON);
+        Response response = null;
+        try {
+            response = client.getLowLevelClient().performRequest(HttpPost.METHOD_NAME, "/_mget", Collections.emptyMap(), entity, new HeapBufferedResponseConsumerFactory(1024 * 1024 * 1024));
+            String responseString = EntityUtils.toString(response.getEntity());
+            JSONObject r = new JSONObject(responseString);
+            JSONArray ar = r.getJSONArray("docs");
+            for (int i = 0; i < ar.length(); i++) {
+            	JSONObject object = new JSONObject(ar.optString(i));
+            	if (object.optBoolean("found"))
+            		records.add(ElasticUtils.json2Record(object.optString("_type"), object.optString("_id"), object.optString("_source")));
+            }
+        } catch (IOException e) {
+            log.error(e);
+        }
+        return records;
+    }*/
